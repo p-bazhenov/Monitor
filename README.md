@@ -1,2 +1,2 @@
-# sweater
+# Statistic monitor
 Spring Boot learning
