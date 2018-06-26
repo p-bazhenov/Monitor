@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="/parts/scripts :: head">
+	<title>Monitor</title>
+</head>
+<body>
+	<th:block th:include="/parts/common :: navbar"></th:block> 
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-6 mx-auto">
+			<form method="post" th:action="${newbie.username != null}?@{/saveuserchanges}:''">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Parameter</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Short Name:</td>
+							<td><input type="text" name="username" th:value="${newbie.username != null}?${newbie.username}:''"/></td>
+						</tr>
+						<tr>
+							<td>Full Name:</td>
+							<td><input type="text" name="fullname" th:value="${newbie.fullname != null}?${newbie.fullname}:''"/></td>
+						</tr>
+						<tr>
+							<td>Game Id:</td>
+							<td><input type="text" name="gameid" th:value="${newbie.gameid != null}?${newbie.gameid}:''"/></td>
+						</tr>
+						<tr>
+							<td>Department:</td>
+							<td><input type="text" name="department" th:value="${newbie.department != null}?${newbie.department}:''"/></td>
+						</tr>
+						<tr>
+							<td>Team:</td>
+							<td><input type="text" name="team" th:value="${newbie.team != null}?${newbie.team}:''"/></td>
+						</tr>
+						<tr>
+							<td>Role:</td>
+							<td><select name="role" >
+									<option value="PLAYER">Player</option>
+									<option value="MANAGER">Manager</option>
+							</select></td>
+						</tr>
+					</tbody>
+				</table>
+				<input type="submit" th:value="${newbie.username != null}?'Save changes':'Add user'">
+			</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title th:text="${user.username}">Player</title>
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	crossorigin="anonymous"/>
+
+</head>
+<body>
+
+<h1 th:inline="text">Hello, <span th:text="${user.fullname}">Player</span>!</h1>
+<form th:action="@{/logout}" method="post">
+	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+    <input type="submit" value="Sign Out"/>
+</form>
+
+
+<div class="container">
+	<table class="table">
+	  <thead>
+	    <tr>
+	      <th></th>
+	      <th scope="col">WoT</th>
+	      <th scope="col">WoWP</th>
+	      <th scope="col">WoWS</th>
+	      <th scope="col">WoTB</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td>Battles count</td>
+	      <td th:text="${wot.get('statistics').getAsJsonObject().get('all').getAsJsonObject().get('battles').getAsString()}">WoT battles</td>
+	      <td th:text="${wowp.get('statistics').getAsJsonObject().get('all').getAsJsonObject().get('battles').getAsString()}">WoWP battles</td>
+	      <td th:text="${wows.get('statistics').getAsJsonObject().get('pvp').getAsJsonObject().get('battles').getAsString()}">WoWs battles</td>
+	      <td th:text="${wotb.get('statistics').getAsJsonObject().get('all').getAsJsonObject().get('battles').getAsString()}">WoTB battles</td>
+	    </tr>
+	    <tr>
+	      <td>Last battle time</td>
+	      <td class="lbtime" th:text="${wot.get('last_battle_time').getAsString()}">WoT battles</td>
+	      <td class="lbtime" th:text="${wowp.get('last_battle_time').getAsString()}">WoWP battles</td>
+	      <td class="lbtime" th:text="${wows.get('last_battle_time')}">WoWs battles</td>
+	      <td class="lbtime" th:text="${wotb.get('last_battle_time')}">WoTB battles</td>
+	    </tr>
+	    <tr>
+	      <td>Last battle time</td>
+	      <td><a th:href="@{'/details/wot/' + ${user.gameid}}">Details info</a></td>
+	      <td><a th:href="@{'/details/wowp/' + ${user.gameid}}">Details info</a></td>
+	      <td><a th:href="@{'/details/wows/' + ${user.gameid}}">Details info</a></td>
+	      <td><a th:href="@{'/details/wotb/' + ${user.gameid}}">Details info</a></td>
+	    </tr>
+	  </tbody>
+	</table>
+</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+		integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript" th:src="@{/static/player.js}"></script>
+
+</body>
+</html>
