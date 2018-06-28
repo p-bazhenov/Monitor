@@ -26,7 +26,7 @@ public class PlayerController {
 		model.addAttribute("game", statsParser.getLastWeekStats(game, user.getGameid()));
 		model.addAttribute("user", user);
 
-		return "/games/" + game;
+		return "game";
 	}
 
 	
