@@ -111,7 +111,12 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-
+    public boolean passwordUpdate() {
+    	
+    	return false;
+    }
+    
+    
     /* private void sendMessage(User user) {
     if (!StringUtils.isEmpty(user.getEmail())) {
         String message = String.format(

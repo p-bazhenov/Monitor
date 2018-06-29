@@ -7,40 +7,47 @@
 <body>
 <th:block th:include="/parts/common :: navbar"></th:block>
 <div class="container mt-5">
-	<table class="table table-hover">
-	  <thead>
-	    <tr class="table-info">
-	      <th></th>
-	      <th scope="col">WoT</th>
-	      <th scope="col">WoWP</th>
-	      <th scope="col">WoWS</th>
-	      <th scope="col">WoTB</th>
-	    </tr>
-	  </thead>
-	  <tbody>
-	    <tr>
-	      <td>Battles count</td>
-	      <td th:text="${wot.battlesCount}">WoT battles</td>
-	      <td th:text="${wowp.battlesCount}">WoWP battles</td>
-	      <td th:text="${wows.battlesCount}">WoWS battles</td>
-	      <td th:text="${wotb.battlesCount}">WoTB battles</td>
-	    </tr>
-	    <tr>
-	      <td>Last battle time</td>
-	      <td class="lbtime" th:text="${wot.lastBattleTime}">WoT battles</td>
-	      <td class="lbtime" th:text="${wowp.lastBattleTime}">WoWP battles</td>
-	      <td class="lbtime" th:text="${wows.lastBattleTime}">WoWs battles</td>
-	      <td class="lbtime" th:text="${wotb.lastBattleTime}">WoTB battles</td>
-	    </tr>
-	    <tr>
-	      <td>Details</td>
-	      <td><a th:href="@{/details/wot}">WoT Profile</a></td>
-	      <td><a th:href="@{/details/wowp}">WoWP Profile</a></td>
-	      <td><a th:href="@{/details/wows}">WoWS Profile</a></td>
-	      <td><a th:href="@{/details/wotb}">WoTB Profile</a></td>
-	    </tr>
-	  </tbody>
-	</table>
+    <div class="row" th:if="${message != null}">
+	    <div class="alert" role="alert" th:classappend="${class}"  th:text="${message}">
+				Your message!
+		</div>
+    </div>
+	<div class="row">
+		<table class="table table-hover">
+		  <thead>
+		    <tr class="table-info">
+		      <th></th>
+		      <th scope="col">WoT</th>
+		      <th scope="col">WoWP</th>
+		      <th scope="col">WoWS</th>
+		      <th scope="col">WoTB</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <td>Battles count</td>
+		      <td th:text="${wot.battlesCount}">WoT battles</td>
+		      <td th:text="${wowp.battlesCount}">WoWP battles</td>
+		      <td th:text="${wows.battlesCount}">WoWS battles</td>
+		      <td th:text="${wotb.battlesCount}">WoTB battles</td>
+		    </tr>
+		    <tr>
+		      <td>Last battle time</td>
+		      <td class="lbtime" th:text="${wot.lastBattleTime}">WoT battles</td>
+		      <td class="lbtime" th:text="${wowp.lastBattleTime}">WoWP battles</td>
+		      <td class="lbtime" th:text="${wows.lastBattleTime}">WoWs battles</td>
+		      <td class="lbtime" th:text="${wotb.lastBattleTime}">WoTB battles</td>
+		    </tr>
+		    <tr>
+		      <td>Details</td>
+		      <td><a th:href="@{/details/wot}">WoT Profile</a></td>
+		      <td><a th:href="@{/details/wowp}">WoWP Profile</a></td>
+		      <td><a th:href="@{/details/wows}">WoWS Profile</a></td>
+		      <td><a th:href="@{/details/wotb}">WoTB Profile</a></td>
+		    </tr>
+		  </tbody>
+		</table>
+	</div>
 </div>
 <script type="text/javascript" th:src="@{/static/player.js}"></script>
 </body>
