@@ -111,9 +111,14 @@ public class UserService implements UserDetailsService {
         userRepo.save(user);
     }
 
-    public boolean passwordUpdate() {
+    public boolean passwordUpdate(User user, String password, String confirm) {
     	
-    	return false;
+    	if (!password.equals(confirm)) {
+    		return false;
+    	}
+    	user.setPassword(passwordEncoder.encode(password));
+    	userRepo.save(user);
+    	return true;
     }
     
     

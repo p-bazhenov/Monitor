@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import monitor.domain.User;
-import monitor.repos.UserRepo;
 import monitor.service.StatsParser;
 import monitor.service.UserService;
 
@@ -54,16 +53,16 @@ public class Monitor {
 		return "player";
 	}
 	
-	@GetMapping("/passwordreset")
+	@GetMapping("/passwordupdate")
 	public String getPasswordResetPage(
 			@AuthenticationPrincipal User user, 
 			Model model
 		) {
 		model.addAttribute("user", user);
-		return "passwordreset";
+		return "passwordupdate";
 	}
 	
-	@PostMapping("/passwordreset")
+	@PostMapping("/passwordupdate")
 	public String doPasswordReset(
 			@AuthenticationPrincipal User user, 
 			@RequestParam (name="password") String password,
@@ -72,12 +71,19 @@ public class Monitor {
 			RedirectAttributes redirect
 		) {
 		
-		boolean isSucces = userService.passwordUpdate();
+		boolean isSucces = userService.passwordUpdate(user, password, confirm);
 		
-		redirect.addAttribute("message", "Password was updated");
-		redirect.addAttribute("user", user);
-		return "redirect:/home";
+		if (isSucces) {
+			redirect.addFlashAttribute("message", "Password was updated");
+			redirect.addFlashAttribute("class", "alert-success");
+			redirect.addFlashAttribute("user", user);
+			return "redirect:/home";
+		}
+		
+		model.addAttribute("message", "A values is not equals");
+		model.addAttribute("class", "alert-danger");
+		model.addAttribute("user", user);
+		return "passwordupdate";
 	}
-
 	
 }

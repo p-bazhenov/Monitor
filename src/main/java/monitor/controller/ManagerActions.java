@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import monitor.domain.Role;
 import monitor.domain.User;
+import monitor.service.StatsParser;
 import monitor.service.UserService;
 
 @Controller
@@ -26,6 +27,9 @@ public class ManagerActions {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private StatsParser statsParser;	
 	
 	@GetMapping("/adduser")
 	public String addUser(
@@ -88,6 +92,24 @@ public class ManagerActions {
 		redirect.addFlashAttribute("class", "alert-success");
 		redirect.addFlashAttribute("message", String.format("A changes for %s was saved.",changed.getFullname()));
 		return "redirect:/home";
+	}
+	
+	@GetMapping("/activity/{gameid}")
+	public String viewUserProfile(
+			@AuthenticationPrincipal User user,
+			@PathVariable (name="gameid") Long targetUserId, 
+			Model model 
+		) {
+		
+		model.addAttribute("wot", statsParser.getShortResults("wot", targetUserId));
+		model.addAttribute("wowp", statsParser.getShortResults("wowp", targetUserId));
+		model.addAttribute("wows", statsParser.getShortResults("wows", targetUserId));
+		model.addAttribute("wotb", statsParser.getShortResults("wotb", targetUserId));
+		model.addAttribute("targetId", targetUserId);
+		model.addAttribute("user", user);
+
+		return "player";
+
 	}
 	
 }
