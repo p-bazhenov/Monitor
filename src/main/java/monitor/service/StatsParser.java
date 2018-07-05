@@ -50,7 +50,7 @@ public class StatsParser {
 	}
 	
 	public List<Statistic> getLastWeekStats(String projectName, Long userid){
-		List<Statistic> lastWeek= statsRepo.findTop7ByProjectNameAndGameId(projectName, userid);
+		List<Statistic> lastWeek= statsRepo.findTop3ByProjectNameAndGameIdOrderByIdDesc(projectName, userid);
 		return lastWeek;
 	}
 	

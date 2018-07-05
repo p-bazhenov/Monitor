@@ -105,11 +105,29 @@ public class ManagerActions {
 		model.addAttribute("wowp", statsParser.getShortResults("wowp", targetUserId));
 		model.addAttribute("wows", statsParser.getShortResults("wows", targetUserId));
 		model.addAttribute("wotb", statsParser.getShortResults("wotb", targetUserId));
-		model.addAttribute("targetId", targetUserId);
+		model.addAttribute("targetUser", userService.findByGameId(targetUserId));
 		model.addAttribute("user", user);
 
 		return "player";
 
 	}
+	
+	@GetMapping("/activity/{projectname}/{gameid}")
+	public String viewGameProfile(
+			@AuthenticationPrincipal User user,
+			@PathVariable (name="projectname") String projectName,
+			@PathVariable (name="gameid") Long targetUserId, 
+			Model model 
+		) {
+		
+		
+		model.addAttribute("game", statsParser.getLastWeekStats(projectName, targetUserId));
+		model.addAttribute("targetUser", userService.findByGameId(targetUserId));
+		model.addAttribute("user", user);
+
+		return "game";
+
+	}
+
 	
 }

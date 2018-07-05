@@ -13,7 +13,7 @@ public interface StatsRepo extends JpaRepository<Statistic, Long>{
 	
 	public Statistic findFirstByProjectNameAndGameIdOrderByIdDesc(String projectName, Long gameId);
 
-	public List<Statistic> findTop7ByProjectNameAndGameId(String projectName, Long userid);
+	public List<Statistic> findTop3ByProjectNameAndGameIdOrderByIdDesc(String projectName, Long userid);
 
 	public List<Statistic> findByGameIdAndDatestamp(Long gameId, Date date);
 

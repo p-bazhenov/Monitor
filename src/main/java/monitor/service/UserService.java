@@ -43,6 +43,11 @@ public class UserService implements UserDetailsService {
         return userRepo.findAll();
     }
     
+    public User findByGameId(Long gameId) {
+        return userRepo.findByGameid(gameId);
+    }
+
+    
     public boolean activateUser(String code) {
         User user = userRepo.findByActivationCode(code);
         if (user == null) {
