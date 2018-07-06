@@ -1,10 +1,8 @@
 package monitor;
 
-
 public class Converter {
 
 }
-
 /*
 import java.util.List;
 
@@ -44,7 +42,7 @@ public class Converter {
 	public void changeStatistic(){
 		List<Statistic> stats = statsRepo.findAll();
 		for (Statistic st : stats) {
-			String data = st.getStatisticJSON();
+			/*String data = st.getStatisticJSON();
 			try {
 			String stata = new JsonParser().parse(data).getAsJsonObject()
 					.get("data").getAsJsonObject()
@@ -55,10 +53,10 @@ public class Converter {
 			} catch (Exception e) {
 				
 			}
+			System.out.println(st.getDatestamp());
 		}
 		
 	    System.out.println("Update finish");
 	}
-	
-	
+		
 }*/

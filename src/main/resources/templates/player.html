@@ -6,58 +6,98 @@
 
 <body>
 	<th:block th:include="/parts/common :: navbar"></th:block>
-	<div class="container mt-5">
+	<div class="container-fluid">
 		<div class="row" th:if="${message != null}">
-			<div class="alert col-6 mx-auto" role="alert" th:classappend="${class}"
-				th:text="${message}">Your message!</div>
+			<div class="alert col-6 mx-auto" role="alert"
+				th:classappend="${class}" th:text="${message}">Your message!</div>
 		</div>
 
 		<div class="row">
 			<div class="row" th:if="${user.isManager()}">
-			<div class="alert col mx-auto" role="alert" th:classappend="${class}"
-				th:text="'Statistic for ' + ${targetUser.fullname}">Your message!</div>
+				<div class="alert col mx-auto" role="alert"
+					th:classappend="${class}"
+					th:text="'Statistic for ' + ${targetUser.fullname}">Your
+					message!</div>
 			</div>
-		
-			<table class="table table-hover">
-				<thead>
-					<tr class="table-info">
-						<th th:if="${user.isManager()}" th:text="${targetUser.fullname}"></th>
-						<th scope="col">WoT</th>
-						<th scope="col">WoWP</th>
-						<th scope="col">WoWS</th>
-						<th scope="col">WoTB</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>Battles count</td>
-						<td th:text="${wot.battlesCount}">WoT battles</td>
-						<td th:text="${wowp.battlesCount}">WoWP battles</td>
-						<td th:text="${wows.battlesCount}">WoWS battles</td>
-						<td th:text="${wotb.battlesCount}">WoTB battles</td>
-					</tr>
-					<tr>
-						<td>Last battle time</td>
-						<td class="lbtime" th:text="${wot.lastBattleTime}">WoT
-							battles</td>
-						<td class="lbtime" th:text="${wowp.lastBattleTime}">WoWP
-							battles</td>
-						<td class="lbtime" th:text="${wows.lastBattleTime}">WoWs
-							battles</td>
-						<td class="lbtime" th:text="${wotb.lastBattleTime}">WoTB
-							battles</td>
-					</tr>
-					<tr>
-						<td>Details</td>
-						<td><a th:href="${user.isManager()}?@{'/activity/wot/' + ${targetUser.gameid}}:@{/details/wot}">WoT Profile</a></td>
-						<td><a th:href="${user.isManager()}?@{'/activity/wowp/' + ${targetUser.gameid}}:@{/details/wowp}">WoWP Profile</a></td>
-						<td><a th:href="${user.isManager()}?@{'/activity/wows/' + ${targetUser.gameid}}:@{/details/wows}">WoWS Profile</a></td>
-						<td><a th:href="${user.isManager()}?@{'/activity/wotb/' + ${targetUser.gameid}}:@{/details/wotb}">WoTB Profile</a></td>
-					</tr>
-				</tbody>
-			</table>
+
+			<div class="table-responsive text-center">
+				<table class="table table-bordered table-hover table-striped">
+					<thead>
+						<tr class="table-info">
+							<th th:text="${user.isManager()}?${targetUser.fullname}:''"></th>
+							<th scope="col" colspan="2" class="text-center">WoT</th>
+							<th scope="col" colspan="2" class="text-center">WoWP</th>
+							<th scope="col" colspan="2" class="text-center">WoWS</th>
+							<th scope="col" colspan="2" class="text-center">WoTB</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Date</td>
+							<td><input type="text" class="form-control"></td>
+							<td th:text="${wot.dbDate}">WoT battles</td>
+							<td><input type="text" class="form-control"></td>
+							<td th:text="${wowp.dbDate}">WoWP battles</td>
+							<td><input type="text" class="form-control"></td>
+							<td th:text="${wows.dbDate}">WoWS battles</td>
+							<td><input type="text" class="form-control"></td>
+							<td th:text="${wotb.dbDate}">WoTB battles</td>
+						</tr>
+						<tr>
+							<td>Battles count</td>
+							<td th:text="${wot.battlesCount}">WoT battles</td>
+							<td th:text="${wowp.battlesCount}">WoWP battles</td>
+							<td th:text="${wows.battlesCount}">WoWS battles</td>
+							<td th:text="${wotb.battlesCount}">WoTB battles</td>
+							<td th:text="${wot.battlesCount}">WoT battles</td>
+							<td th:text="${wowp.battlesCount}">WoWP battles</td>
+							<td th:text="${wows.battlesCount}">WoWS battles</td>
+							<td th:text="${wotb.battlesCount}">WoTB battles</td>
+
+						</tr>
+						<tr>
+							<td>Last battle time</td>
+							<td class="lbtime" th:text="${wot.lastBattleTime}">WoT
+								battles</td>
+							<td class="lbtime" th:text="${wowp.lastBattleTime}">WoWP
+								battles</td>
+							<td class="lbtime" th:text="${wows.lastBattleTime}">WoWs
+								battles</td>
+							<td class="lbtime" th:text="${wotb.lastBattleTime}">WoTB
+								battles</td>
+							<td class="lbtime" th:text="${wot.lastBattleTime}">WoT
+								battles</td>
+							<td class="lbtime" th:text="${wowp.lastBattleTime}">WoWP
+								battles</td>
+							<td class="lbtime" th:text="${wows.lastBattleTime}">WoWs
+								battles</td>
+							<td class="lbtime" th:text="${wotb.lastBattleTime}">WoTB
+								battles</td>
+						</tr>
+						<tr>
+							<td>Details</td>
+							<td colspan="2" class="text-center"><a
+								th:href="${user.isManager()}?@{'/activity/wot/' + ${targetUser.gameid}}:@{/details/wot}">WoT
+									Profile</a></td>
+							<td colspan="2" class="text-center"><a
+								th:href="${user.isManager()}?@{'/activity/wowp/' + ${targetUser.gameid}}:@{/details/wowp}">WoWP
+									Profile</a></td>
+							<td colspan="2" class="text-center"><a
+								th:href="${user.isManager()}?@{'/activity/wows/' + ${targetUser.gameid}}:@{/details/wows}">WoWS
+									Profile</a></td>
+							<td colspan="2" class="text-center"><a
+								th:href="${user.isManager()}?@{'/activity/wotb/' + ${targetUser.gameid}}:@{/details/wotb}">WoTB
+									Profile</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
+	<script type="text/javascript"
+		th:src="@{/static/datepicker/js/bootstrap-datepicker.min.js}"></script>
+	<script type="text/javascript"
+		th:src="@{/static/datepicker/locales/bootstrap-datepicker.ru.min.js}"></script>
 	<script type="text/javascript" th:src="@{/static/js/player.js}"></script>
 </body>
 </html>

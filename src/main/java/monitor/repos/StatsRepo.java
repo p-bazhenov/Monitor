@@ -1,6 +1,5 @@
 package monitor.repos;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,6 +14,8 @@ public interface StatsRepo extends JpaRepository<Statistic, Long>{
 
 	public List<Statistic> findTop3ByProjectNameAndGameIdOrderByIdDesc(String projectName, Long userid);
 
-	public List<Statistic> findByGameIdAndDatestamp(Long gameId, Date date);
+	public List<Statistic> findByGameIdAndDatestamp(Long gameId, String local);
+
+	public Statistic findByGameIdAndDatestampAndProjectName(Long gameId, String local, String projectName);
 
 }

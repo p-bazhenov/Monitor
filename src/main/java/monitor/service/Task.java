@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -39,16 +40,17 @@ public class Task {
     @Autowired
     private StatsRepo statsRepo;
     
-	@Scheduled(cron="0 48 21 * * *", zone="Europe/Minsk")
+	@Scheduled(cron="0 40 17 * * *", zone="Europe/Minsk")
 	public void reportCurrentTime() {
         log.info("The time is now {}", dateFormat.format(new Date()));
         List<User> users = userService.findAll();
     	GameProjects[] projects = GameProjects.values();
+    	String ld = LocalDate.now().toString();
         for (User u : users) {
         	for (GameProjects project : projects) {
 	        	try {
 	        		Statistic st = new Statistic();
-	        		st.setDatestamp(new Date());
+	        		st.setDatestamp(ld);
 	        		st.setGameId(u.getGameid());
 	        		st.setProjectName(project.name());
 					String stat = getStatistic(u.getGameid(), project.name().toLowerCase());

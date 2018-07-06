@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import monitor.domain.User;
-import monitor.service.StatsParser;
+import monitor.service.StatsService;
 import monitor.service.UserService;
 
 @Controller
@@ -22,7 +22,7 @@ public class Monitor {
 	private UserService userService;
 			
 	@Autowired
-	private StatsParser statsParser;	
+	private StatsService statsParser;	
 	
 	@GetMapping("/")
 	public String start(@AuthenticationPrincipal User user) {
@@ -44,10 +44,10 @@ public class Monitor {
 			return "manager";
 		}
 		
-		model.addAttribute("wot", statsParser.getShortResults("wot", user.getGameid()));
-		model.addAttribute("wowp", statsParser.getShortResults("wowp", user.getGameid()));
-		model.addAttribute("wows", statsParser.getShortResults("wows", user.getGameid()));
-		model.addAttribute("wotb", statsParser.getShortResults("wotb", user.getGameid()));
+		model.addAttribute("wot", statsParser.getLastDayStats("wot", user.getGameid()));
+		model.addAttribute("wowp", statsParser.getLastDayStats("wowp", user.getGameid()));
+		model.addAttribute("wows", statsParser.getLastDayStats("wows", user.getGameid()));
+		model.addAttribute("wotb", statsParser.getLastDayStats("wotb", user.getGameid()));
 		model.addAttribute("user", user);
 
 		return "player";

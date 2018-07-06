@@ -1,28 +1,29 @@
 package monitor.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import monitor.domain.ShortResults;
-import monitor.repos.StatsRepo;
+import monitor.domain.User;
+import monitor.service.StatsService;
 
 @RestController
 public class RestfullController {
 
 	@Autowired
-	private StatsRepo statsRepo;
-	
+	private StatsService statsService;
+
 	@GetMapping("/api/{project}/{date}")
 	public ShortResults getData(
-			@PathVariable String project,
-			@PathVariable String dt
+			@AuthenticationPrincipal User user,
+			@PathVariable(name = "project") String project,
+			@PathVariable(name = "date") String dt
 	) {
-		
-	
-		return new ShortResults();
+		ShortResults sr = statsService.getResultsByDateProjectGameid(dt, project, user.getGameid());
+		return sr;
 	}
-	
-	
+		
 }

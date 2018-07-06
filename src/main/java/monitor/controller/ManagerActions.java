@@ -18,7 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import monitor.domain.Role;
 import monitor.domain.User;
-import monitor.service.StatsParser;
+import monitor.service.StatsService;
 import monitor.service.UserService;
 
 @Controller
@@ -29,7 +29,7 @@ public class ManagerActions {
 	private UserService userService;
 	
 	@Autowired
-	private StatsParser statsParser;	
+	private StatsService statsParser;	
 	
 	@GetMapping("/adduser")
 	public String addUser(
@@ -101,10 +101,10 @@ public class ManagerActions {
 			Model model 
 		) {
 		
-		model.addAttribute("wot", statsParser.getShortResults("wot", targetUserId));
-		model.addAttribute("wowp", statsParser.getShortResults("wowp", targetUserId));
-		model.addAttribute("wows", statsParser.getShortResults("wows", targetUserId));
-		model.addAttribute("wotb", statsParser.getShortResults("wotb", targetUserId));
+		model.addAttribute("wot", statsParser.getLastDayStats("wot", targetUserId));
+		model.addAttribute("wowp", statsParser.getLastDayStats("wowp", targetUserId));
+		model.addAttribute("wows", statsParser.getLastDayStats("wows", targetUserId));
+		model.addAttribute("wotb", statsParser.getLastDayStats("wotb", targetUserId));
 		model.addAttribute("targetUser", userService.findByGameId(targetUserId));
 		model.addAttribute("user", user);
 
@@ -121,7 +121,7 @@ public class ManagerActions {
 		) {
 		
 		
-		model.addAttribute("game", statsParser.getLastWeekStats(projectName, targetUserId));
+		model.addAttribute("game", statsParser.getLast3DaysStats(projectName, targetUserId));
 		model.addAttribute("targetUser", userService.findByGameId(targetUserId));
 		model.addAttribute("user", user);
 

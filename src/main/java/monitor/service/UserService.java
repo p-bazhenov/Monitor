@@ -23,12 +23,6 @@ public class UserService implements UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-   /* @Autowired
-    private MailSender mailSender;*/
-
-    /*@Value("${hostname}")
-    private String hostname;*/
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findByUsername(username);
@@ -46,19 +40,16 @@ public class UserService implements UserDetailsService {
     public User findByGameId(Long gameId) {
         return userRepo.findByGameid(gameId);
     }
-
     
-    public boolean activateUser(String code) {
-        User user = userRepo.findByActivationCode(code);
-        if (user == null) {
-            return false;
-        }
+	public User findUserByUsername(String username) {
+		User user = userRepo.findByUsername(username);
+		if (user == null) {
+			return null;
+		}
+		return user;
+	}
 
-        user.setActivationCode(null);
-        userRepo.save(user);
-        return true;
-    }
-    
+        
     public boolean addUser(User user, String role) {
         User userFromDb = userRepo.findByUsername(user.getUsername());
         if (userFromDb != null) {
@@ -73,15 +64,6 @@ public class UserService implements UserDetailsService {
        // sendMessage(user);
         return true;
     }
-
-	public User findUserByUsername(String username) {
-		User user = userRepo.findByUsername(username);
-		if (user == null) {
-			return null;
-		}
-		return user;
-	}
-
 	
 	public boolean saveChangesOfUser(User oldman, String role) {
 		User newbie = userRepo.findByGameid(oldman.getGameid());
@@ -127,43 +109,4 @@ public class UserService implements UserDetailsService {
     }
     
     
-    /* private void sendMessage(User user) {
-    if (!StringUtils.isEmpty(user.getEmail())) {
-        String message = String.format(
-                "Hello, %s! \n" +
-                        "Welcome to Sweater. Please, visit next link: http://%s/activate/%s",
-                user.getUsername(),
-                hostname,
-                user.getActivationCode()
-        );
-
-        mailSender.send(user.getEmail(), "Activation code", message);
-    }
-}*/
-
-    
-    /*public void updateProfile(User user, String password, String email) {
-        String userEmail = user.getEmail();
-
-        boolean isEmailChanged = (email != null && !email.equals(userEmail)) ||
-                (userEmail != null && !userEmail.equals(email));
-
-        if (isEmailChanged) {
-            user.setEmail(email);
-
-            if (!StringUtils.isEmpty(email)) {
-                user.setActivationCode(UUID.randomUUID().toString());
-            }
-        }
-
-        if (!StringUtils.isEmpty(password)) {
-            user.setPassword(password);
-        }
-
-        userRepo.save(user);
-
-        if (isEmailChanged) {
-         //   sendMessage(user);
-        }
-    }*/
 }

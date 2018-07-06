@@ -1,7 +1,5 @@
 package monitor.domain;
 
-import java.util.Date;
-
 import javax.persistence.*;
 
 @Entity
@@ -14,9 +12,8 @@ public class Statistic {
 	@Column(nullable=false)
 	private Long gameId;
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable=false)
-	private Date datestamp;
+	private String datestamp;
 	
 	@Column(nullable=false, length=10)
 	private String projectName;
@@ -40,11 +37,11 @@ public class Statistic {
 		this.gameId = gameId;
 	}
 
-	public Date getDatestamp() {
+	public String getDatestamp() {
 		return datestamp;
 	}
 
-	public void setDatestamp(Date datestamp) {
+	public void setDatestamp(String datestamp) {
 		this.datestamp = datestamp;
 	}
 

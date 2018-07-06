@@ -16,16 +16,30 @@ import monitor.repos.StatsRepo;
 
 
 @Component
-public class StatsParser {
+public class StatsService {
 
 	@Autowired
 	private StatsRepo statsRepo;	
 	
-	public ShortResults getShortResults(String projectName, Long userid) {
-		
+	public ShortResults getLastDayStats(String projectName, Long userid) {
 		Statistic statistic = statsRepo.findFirstByProjectNameAndGameIdOrderByIdDesc(projectName, userid);
+		return parseStatistic(statistic, projectName);		
+	}
+	
+	public List<Statistic> getLast3DaysStats(String projectName, Long userid){
+		List<Statistic> stats= statsRepo.findTop3ByProjectNameAndGameIdOrderByIdDesc(projectName, userid);
+		return stats;
+	}
+
+	public ShortResults getResultsByDateProjectGameid(String datestring, String projectName, Long userid) {
+		Statistic statistic = statsRepo.findByGameIdAndDatestampAndProjectName(userid, datestring, projectName);
+		return parseStatistic(statistic, projectName);
+	}
+	
+	private ShortResults parseStatistic(Statistic statistic, String projectName) {
+		
 		if (statistic.getStatisticJSON() == null){
-			return new ShortResults(0, 0);
+			return new ShortResults(0, 0, "0");
 		}
 		
 		JsonObject st = new JsonParser()
@@ -46,12 +60,7 @@ public class StatsParser {
 			}
 		}
 		
-		return new ShortResults(battlesCount, lastBattleTime);		
+		return new ShortResults(battlesCount, lastBattleTime, statistic.getDatestamp());		
 	}
-	
-	public List<Statistic> getLastWeekStats(String projectName, Long userid){
-		List<Statistic> lastWeek= statsRepo.findTop3ByProjectNameAndGameIdOrderByIdDesc(projectName, userid);
-		return lastWeek;
-	}
-	
+		
 }

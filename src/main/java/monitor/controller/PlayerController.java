@@ -8,13 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import monitor.domain.User;
-import monitor.service.StatsParser;
+import monitor.service.StatsService;
 
 @Controller
 public class PlayerController {
 
 	@Autowired
-	private StatsParser statsParser;
+	private StatsService statsParser;
 	
 	@GetMapping("/details/{game}")
 	public String getActivity(
@@ -23,7 +23,7 @@ public class PlayerController {
 			Model model
 			) {
 		
-		model.addAttribute("game", statsParser.getLastWeekStats(game, user.getGameid()));
+		model.addAttribute("game", statsParser.getLast3DaysStats(game, user.getGameid()));
 		model.addAttribute("user", user);
 
 		return "game";
