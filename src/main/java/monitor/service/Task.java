@@ -40,7 +40,7 @@ public class Task {
     @Autowired
     private StatsRepo statsRepo;
     
-	@Scheduled(cron="0 40 17 * * *", zone="Europe/Minsk")
+	@Scheduled(cron="0 10 01 * * *", zone="Europe/Minsk") 
 	public void reportCurrentTime() {
         log.info("The time is now {}", dateFormat.format(new Date()));
         List<User> users = userService.findAll();

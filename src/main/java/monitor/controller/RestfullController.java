@@ -16,13 +16,14 @@ public class RestfullController {
 	@Autowired
 	private StatsService statsService;
 
-	@GetMapping("/api/{project}/{date}")
+	@GetMapping("/api/{targetid}/{project}/{date}")
 	public ShortResults getData(
 			@AuthenticationPrincipal User user,
+			@PathVariable(name = "targetid") Long targetid,
 			@PathVariable(name = "project") String project,
 			@PathVariable(name = "date") String dt
 	) {
-		ShortResults sr = statsService.getResultsByDateProjectGameid(dt, project, user.getGameid());
+		ShortResults sr = statsService.getResultsByDateProjectGameid(dt, project, targetid);
 		return sr;
 	}
 		
